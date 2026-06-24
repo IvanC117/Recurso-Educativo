@@ -19,6 +19,8 @@
             line-height: 1.6;
         }
 
+        
+
         nav{
             width: 280px;
             background-color: #2c3e50;
@@ -88,20 +90,75 @@
             margin: 0; color: #2c3e50; 
         }
             
-        .btn-idioma {
+        .dropdown-idioma {
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn-dropdown {
             background-color: #1abc9c;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             transition: 0.3s;
         }
 
-        .btn-idioma:hover { 
+        .btn-dropdown:hover {
             background-color: #16a085;
-        } 
+        }
+
+        .dropdown-contenido {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            top: 115%;
+            right: 0;
+        }
+
+        .dropdown-contenido.mostrar {
+            display: block;
+        }
+
+        .dropdown-contenido a {
+            color: #2c3e50;
+            padding: 12px 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-contenido a:hover {
+            background-color: #e8f8f5;
+            color: #16a085;
+        }
+
+        .icono-bandera {
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            height: 18px;
+            object-fit: cover;
+        }
+
+        .flecha {
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
 
         .subseccion{
             display: none;
@@ -239,7 +296,7 @@
             border-top: 2px solid #ecf0f1;
             display: flex;
             justify-content: flex;
-            justify-content: space-between
+            justify-content: space-between;
 
         }
 
@@ -316,18 +373,179 @@
             justify-content: center;
         }
 
-            
-        .idioma-en {
-            
-            display: none;
-        
+        .contenedor-progreso {
+            padding: 15px 20px;
+            background-color: #1a252f;
+            border-bottom: 2px solid #34495e;
+            margin-bottom: 10px;
         }
+
+        .texto-progreso {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            color: #ecf0f1;
+            font-weight: bold;
+        }
+
+        .barra-progreso-fondo {
+            width: 100%;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .barra-progreso-relleno {
+            height: 100%;
+            background-color: #1abc9c;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .check-completado {
+            float: right;
+            color: #1abc9c;
+            font-weight: bold;
+            font-size: 1rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .active-nav .check-completado {
+            color: white;
+        }
+
+        .micro-opciones {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .micro-opciones button {
+            padding: 8px 15px;
+            border: 1px solid #bdc3c7;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .micro-opciones button:hover:not(:disabled) {
+            background: #ecf0f1;
+            border-color: #1abc9c;
+        }
+        .micro-opciones button:disabled {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .idioma-en {
+            display: none;
+        }
+
+        .btn-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            cursor: pointer;
+            margin-right: 15px;
+            padding: 0;
+            transition: transform 0.2s;
+        }
+
+        .btn-menu:active {
+            transform: scale(0.9);
+        }
+
+        .overlay-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (max-width: 900px) {
+            .btn-menu {
+                display: block;
+            }
+
+            header {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .titulo-principal {
+                font-size: 1.3rem;
+                flex-grow: 1;
+            }
+
+            nav {
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            }
+
+            nav.nav-abierto {
+                transform: translateX(0);
+            }
+
+            .overlay-menu.mostrar {
+                display: block;
+                opacity: 1;
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .multimedia, #seccion2-1 .multimedia {
+                width: 100% !important;
+                height: auto;
+            }
+
+            .section-nav-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn-siguiente {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .micro-opciones {
+                flex-direction: column;
+                
+            }
+
+            .micro-opciones button {
+                width: 100%;
+            }
+        }
+
+            
+
 
     </style>
 
 </head>
 
 <body>
+
+    <div class="overlay-menu" id="overlay" onclick="toggleMenu()"></div>
 
  <nav>
 
@@ -337,6 +555,17 @@
             <span class="idioma-en">🎓 Course: Digital Wellbeing</span>
 
         </h2>
+
+        <div class="contenedor-progreso">
+            <div class="texto-progreso">
+                <span class="idioma-es">Progreso del curso:</span>
+                <span class="idioma-en">Course progress:</span>
+                <span id="porcentaje-texto">0%</span>
+            </div>
+            <div class="barra-progreso-fondo">
+                <div class="barra-progreso-relleno" id="barra-progreso"></div>
+            </div>
+        </div>
 
         <div class="nav-modulo-titulo">
             <span class="idioma-es">Módulo 1</span>
@@ -477,6 +706,8 @@
 
         <header>
 
+            <button class="btn-menu" onclick="toggleMenu()">☰</button>
+
             <h1 class="titulo-principal">
 
                 <span class="idioma-es">Bienestar Digital para Estudiantes</span>
@@ -484,12 +715,22 @@
 
             </h1>
 
-            <button class="btn-idioma" onclick="cambiarIdioma()">
-
-                <span class="idioma-es">Switch to English</span>
-                <span class="idioma-en">Cambiar a Español</span>
-
-            </button>
+            <div class="dropdown-idioma">
+                <button class="btn-dropdown" id="btn-idioma-actual" onclick="toggleDropdown()">
+                    <img src="assets/español.png" alt="Bandera España" width="24" class="icono-bandera"> 
+                    <span>Español</span>
+                    <span class="flecha">▼</span>
+                </button>
+                
+                <div class="dropdown-contenido" id="dropdown-opciones">
+                    <a href="#" onclick="seleccionarIdioma('es'); return false;">
+                        <img src="assets/español.png" alt="Bandera España" width="24" class="icono-bandera"> Español
+                    </a>
+                    <a href="#" onclick="seleccionarIdioma('en'); return false;">
+                        <img src="assets/ingles.png" alt="Bandera Reino Unido" width="24" class="icono-bandera"> English
+                    </a>
+                </div>
+            </div>
 
         </header>
 
@@ -509,17 +750,17 @@
 
             <div class="idioma-es">
 
-                <p>En la era digital en busca de optimizar el tiempo los estudiantes tienden a tratar de realizar sus actividades académicas diferentes de manera simultánea y/o estudiar, interactuar con redes sociales, ver contenido multimedia, ya que sienten que están siendo más productivos o que no están desperdiciando su tiempo solamente en el entretenimiento a este fenómeno se le ha denominado multitarea.</p>
+                <p>En la era digital en busca de optimizar el tiempo los estudiantes tienden a tratar de realizar sus actividades académicas diferentes de manera simultánea y/o estudiar, interactuar con redes sociales, ver contenido multimedia, ya que sienten que están siendo más productivos o que no están desperdiciando su tiempo solamente en el entretenimiento. A este fenómeno se le ha denominado multitarea.</p>
                 
-                <p>Fernández et al. (2026) comparte una investigación sobre prácticas de lectura de estudiantes universitarios en la que se aborda la multitarea durante la lectura y donde el 50% de los estudiantes encuestados afirmó que considera que la multitarea disminuye la eficiencia de la lectura debido a una mayor inversión de tiempo, esto es explorado a profundidad por la American Psychological Association, (2006) que le da un nombre a este fenómeno llamándolo costes de cambio esto se refiere al tiempo que tarda el cerebro a ajustarse para abordar la otra tarea, junto con la carga cognitiva de pensar en qué momento se va a cambiar de tarea lo cual disminuye la capacidad de concentración en lo que se está realizando, este coste se incremente de acuerdo a la complejidad de las tareas, en los estudios que la APA comparte para llegar a esta conclusión se evidencio que las personas que aplicaban la multitarea aumentaba el tiempo de finalización de los objetivos propuestos comparados con quienes lograban los objetivos de manera secuencial.</p>
+                <p>Fernández et al. (2026) comparte una investigación sobre prácticas de lectura de estudiantes universitarios en la que se aborda la multitarea durante la lectura y donde el 50% de los estudiantes encuestados afirmó que considera que la multitarea disminuye la eficiencia de la lectura debido a una mayor inversión de tiempo, esto es explorado a profundidad por la American Psychological Association, (2006) que le da un nombre a este fenómeno llamándolo costes de cambio esto se refiere al tiempo que tarda el cerebro a ajustarse para abordar la otra tarea, junto con la carga cognitiva de pensar en qué momento se va a cambiar de tarea lo cual disminuye la capacidad de concentración en lo que se está realizando, este coste se incremente de acuerdo a la complejidad de las tareas, en los estudios que la APA comparte para llegar a esta conclusión se evidenció que las personas que aplicaban la multitarea aumentaba el tiempo de finalización de los objetivos propuestos comparados con quienes lograban los objetivos de manera secuencial.</p>
                 
-                <img src="assets/1.1.png" class="multimedia">
+                <img src="assets/1.1.png" alt="Comparación ilustrada entre la multitarea, que muestra un nivel de enfoque bajo con distracciones, y la monotarea, con un nivel de enfoque alto y atención en un solo dispositivo" class="multimedia">
                 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Imagen tomada de: Vini. (2025, April 12). Mono-tasking vs Multitasking - Why Focused Work Wins Every Time. VHTC - Transforming Education, Shaping Tomorrow. https://www.vhtc.org/2025/04/mono-tasking-vs-multitasking.html?m=1</p>
                 
-                <p>Pero la multitarea no afecta únicamente el tiempo la productividad, sino que también tiene efectos en adversos en la capacidad cognitiva de las personas de acuerdo con Hasan (2024) las personas que practican la multitarea de marera recurrente pueden provocar hiperactividad cerebral lo cual consisten en un aumento de la actividad neuronal y los niveles de excitación, junto a padecimientos psicológicos, ya que en este tipo de pacientes se observó una mayor probabilidad de padecer síntomas de depresión y ansiedad, además, el empleo de la  multitarea a largo plazo se ha visto relacionada con  una menor capacidad de memoria y función ejecutiva del cerebro deficiente.</p>
+                <p>Pero la multitarea no afecta únicamente el tiempo la productividad, sino que también tiene efectos en adversos en la capacidad cognitiva de las personas de acuerdo con Hasan (2024) las personas que practican la multitarea de manera recurrente pueden provocar hiperactividad cerebral lo cual consiste en un aumento de la actividad neuronal y los niveles de excitación, junto a padecimientos psicológicos, ya que en este tipo de pacientes se observó una mayor probabilidad de padecer síntomas de depresión y ansiedad, además, el empleo de la  multitarea a largo plazo se ha visto relacionada con  una menor capacidad de memoria y función ejecutiva del cerebro deficiente.</p>
                
-                <p>Con lo expuesto queda demostrado que la multitarea no ayuda a tener una mayor eficiencia si no que, por el contrario, aumenta el tiempo invertido en terminar las labores académicas, junto a esto provoca efectos adversos en la capacidad cognitiva de las personas que lo practican, por es recomendable desarrollar una sola actividad académica al tiempo enfocándose solamente en ella sin interferencia como ver videos o usar redes sociales, tomando descansos para durante la actividad para estirar el cuerpo y relajar la mente antes de continuar y así evitar la sobrecarga cognitiva.</p>
+                <p>Con lo expuesto queda demostrado que la multitarea no ayuda a tener una mayor eficiencia sino que, por el contrario, aumenta el tiempo invertido en terminar las labores académicas, junto a esto provoca efectos adversos en la capacidad cognitiva de las personas que lo practican, por eso es recomendable desarrollar una sola actividad académica al tiempo enfocándose solamente en ella sin interferencia como ver videos o usar redes sociales, tomando descansos durante la actividad para estirar el cuerpo y relajar la mente antes de continuar y así evitar la sobrecarga cognitiva.</p>
 
             </div>
 
@@ -529,20 +770,20 @@
 
                 <p>Fernández et al. (2026) share research on the reading practices of university students that addresses multitasking during reading, where 50% of the surveyed students stated that they consider multitasking to decrease reading efficiency due to a greater investment of time. This is explored in depth by the American Psychological Association (2006), which gives a name to this phenomenon, calling it "switching costs." This refers to the time it takes the brain to adjust to tackle the other task, along with the cognitive load of thinking about when to switch tasks, which decreases the capacity for concentration on what is being done. This cost increases according to the complexity of the tasks. In the studies that the APA shares to reach this conclusion, it was evidenced that people who applied multitasking increased the completion time of their proposed objectives compared to those who achieved their objectives sequentially.</p>
 
-                <img src="assets/1.1 ingles.png" class="multimedia">
+                <img src="assets/1.1 ingles.png" alt="Illustrated comparison between multi-tasking, showing a low focus level with distractions, and mono-tasking, with a high focus level and attention on a single device" class="multimedia">
                 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Image taken from: Vini. (2025, April 12). Mono-tasking vs Multitasking - Why Focused Work Wins Every Time. VHTC - Transforming Education, Shaping Tomorrow. https://www.vhtc.org/2025/04/mono-tasking-vs-multitasking.html?m=1</p>
 
-                <p>But multitasking does not only affect time and productivity; it also has adverse effects on people's cognitive capacity. According to Hasan (2024), people who practice multitasking recurrently can induce cerebral hyperactivity, which consists of an increase in neuronal activity and arousal levels, along with psychological conditions, as a higher probability of suffering from depression and anxiety symptoms was observed in these types of patients. Furthermore, long-term multitasking has been linked to lower memory capacity and deficient executive brain function.<p>
+                <p>But multitasking does not only affect time and productivity; it also has adverse effects on people's cognitive capacity. According to Hasan (2024), people who practice multitasking recurrently can induce cerebral hyperactivity, which consists of an increase in neuronal activity and arousal levels, along with psychological conditions, as a higher probability of suffering from depression and anxiety symptoms was observed in these types of patients. Furthermore, long-term multitasking has been linked to lower memory capacity and deficient executive brain function.</p>
 
-                <p>With the above, it is demonstrated that multitasking does not help to have greater efficiency but, on the contrary, increases the time invested in finishing academic work. Along with this, it causes adverse effects on the cognitive capacity of the people who practice it. Therefore, it is advisable to develop a single academic activity at a time, focusing solely on it without interference such as watching videos or using social networks, taking breaks during the activity to stretch the body and relax the mind before continuing, and thus avoiding cognitive overload.<p>    
+                <p>With the above, it is demonstrated that multitasking does not help to have greater efficiency but, on the contrary, increases the time invested in finishing academic work. Along with this, it causes adverse effects on the cognitive capacity of the people who practice it. Therefore, it is advisable to develop a single academic activity at a time, focusing solely on it without interference such as watching videos or using social networks, taking breaks during the activity to stretch the body and relax the mind before continuing, and thus avoiding cognitive overload.</p>    
 
             </div>
 
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -553,7 +794,23 @@
 
             </div>
 
-            
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">La multitarea mejora la eficiencia al permitirnos completar objetivos más rápido.</span><span class="idioma-en">Multitasking improves efficiency by allowing us to complete goals faster.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion1-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion1-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">El coste de cambio es el tiempo que tarda el cerebro en ajustarse al pasar de una tarea a otra.</span><span class="idioma-en">The "switching cost" is the time it takes the brain to adjust when switching from one task to another.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion1-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion1-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
 
             <div class="section-nav-footer">
@@ -592,13 +849,13 @@
 
             <div class="idioma-es">
 
-                <p>La utilización de los equipos de cómputo se ha vuelto una herramienta indispensable para los estudiantes, cada vez teniendo que pasar más tiempo utilizándolos, lo ha provocado la aparición de molestias físicas como dolores al adoptar malas posturas, poca frecuencia de parpadea y a largo plazo problemas visuales, llegan a afectar el desarrollo de actividades académicas al tener que interrumpir constantemente las sesiones de estudio por los malestares físicos que también disminuyen la capacidad de concentración provocando bajo rendimiento académico.</p>
+                <p>La utilización de los equipos de cómputo se ha vuelto una herramienta indispensable para los estudiantes, cada vez teniendo que pasar más tiempo utilizándolos, lo que ha provocado la aparición de molestias físicas como dolores al adoptar malas posturas, poca frecuencia de parpadeo y a largo plazo problemas visuales, llegan a afectar el desarrollo de actividades académicas al tener que interrumpir constantemente las sesiones de estudio por los malestares físicos que también disminuyen la capacidad de concentración provocando bajo rendimiento académico.</p>
                 
                 <p>La American Optometric Association, 2020 establece el computer vision syndrome (CVS), que en español serie el síndrome de Visión por Computadora, esta catalogación se da debido que el uso de pantallas digitales supone un esfuerzo mayor para el enfoque y movimiento ocular, que otras tareas como la lectura o la escritura, que puede provocar síntomas como fatiga visual dolores de cabeza, visión borrosa y ojos secos, esto también se ve reflejado en la postura del individuo que al necesitar ver mejor se inclinan hacia adelante o ajusten sus cabezas en ángulos extraños causándole dolores musculares principalmente en las zonas del cuello, los hombros o la espalda.</p>
                 
                 <p>Para abordar estas problemáticas la American Optometric Association, 2020 propone primero para aliviar la fatiga visual aplicar la regla 20-20-20 que consiste en “tómese un descanso de 20 segundos para mirar algo a 20 pies (6.1 Metros) de distancia cada 20 minuto.”, junto con visitas regulares al optómetra para evaluar la salud ocular y abordar o mitigar los problemas visuales que se puedan generar por el uso intensivo de pantallas, para mitigar los dolores musculares y mala postura recomienda la utilización de una silla ergonómica, además de tener una correcta postura al momento de sentarse como se observa en la siguiente imagen:</p>
                 
-                <img src="assets/1.2.png" class="multimedia">
+                <img src="assets/1.2.png" alt="Diagrama de ergonomía para el uso del ordenador que indica la postura correcta al sentarse, ángulos de 90 grados en brazos y rodillas, y las distancias visuales recomendadas hacia el monitor." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Imagen tomada de: American Optometric Association. (2020, 19 agosto). Computer vision syndrome (Digital eye strain). https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome"</p>
                 
@@ -624,7 +881,7 @@
 
                 <p>To address these problems, the American Optometric Association (2020) proposes, first, to alleviate eye strain by applying the 20-20-20 rule, which consists of "taking a 20-second break to look at something 20 feet (6.1 meters) away every 20 minutes," along with regular visits to the optometrist to evaluate eye health and address or mitigate visual problems that may be generated by the intensive use of screens. To mitigate muscle pain and poor posture, it recommends the use of an ergonomic chair, in addition to having correct posture when sitting, as seen in the following image:</p>
 
-                <img src="assets/1.2.png" class="multimedia">
+                <img src="assets/1.2.png" alt="Ergonomics diagram for computer use indicating the correct sitting posture, 90-degree angles at arms and knees, and recommended visual distances to the monitor." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Image taken from: American Optometric Association. (2020, 19 agosto). Computer vision syndrome (Digital eye strain). https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome"</p>
                 
@@ -637,19 +894,39 @@
                     <li><strong>Posture:</strong> Adjust the chair so that your feet are flat on the floor, use armrests, and do not rest your wrists on the keyboard while typing.</li>
                     <li><strong>Visual breaks:</strong> Apply the 20-20-20 rule, and take a 15-minute break for every two hours of continuous work.</li>
                     <li><strong>Blinking:</strong> Remember to blink frequently to prevent dry eyes.</li>
+                
+                </ul>
 
             </div>
 
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
                 <p>American Optometric Association. (2020, 19 agosto). Computer vision syndrome (Digital eye strain). https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome </p>
 
-            <div class="section-nav-footer">
+                <div class="micro-quiz">
+                    <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                    
+                    <p>1. <span class="idioma-es">La regla 20-20-20 consiste en descansar 20 segundos mirando a 20 pies cada 20 minutos.</span><span class="idioma-en">The 20-20-20 rule consists of resting for 20 seconds looking 20 feet away every 20 minutes.</span></p>
+                    <div class="micro-opciones">
+                        <button onclick="checkMicro(this, true, 'seccion1-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                        <button onclick="checkMicro(this, false, 'seccion1-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                    </div>
+                    <p class="micro-feedback"></p>
+
+                    <p>2. <span class="idioma-es">La posición de la pantalla no influye en los dolores de cuello o espalda.</span><span class="idioma-en">Screen position does not influence neck or back pain.</span></p>
+                    <div class="micro-opciones">
+                        <button onclick="checkMicro(this, false, 'seccion1-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                        <button onclick="checkMicro(this, true, 'seccion1-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                    </div>
+                    <p class="micro-feedback"></p>
+                </div>
+            
+                <div class="section-nav-footer">
 
                 <button class="btn-siguiente btn-retroceder" onclick="mostrarSeccion('seccion1-1')">
                     <span class="idioma-es">⬅ Volver</span>
@@ -683,15 +960,15 @@
 
             <div class="idioma-es">
 
-                <p>Algo que ha afectado enormemente la capacidad de atención y gestión de tiempo de las personas en la era digital, junto con su bienestar psicologico es la necesidad constante de esta conectado a redes sociales y diversas aplicaciones, esto no siendo solo una decisión personal, sino que muchas redes sociales se crean con este propósito como bien lo explica la BBC News Mundo, 2018 las empresas tecnológicas han diseñado sus aplicaciones explotando vulnerabilidades psicológicas para monopolizar este recurso natural que es la atención, Sean Parker cofundador de Facebook reconoció que estas redes sociales buscan consumir la mayor cantidad de tiempo posible proporcionando pequeñas inyecciones de dopamina a través de interacciones sociales intermitentes, como los Me gusta o los comentarios, este ciclo de recompensa constante dificulta que las personas resistan el impulso de revisar sus dispositivos, generando hábitos compulsivos, a este fenómeno se le denomino economía de la atención.</p>
+                <p>Algo que ha afectado enormemente la capacidad de atención y gestión de tiempo de las personas en la era digital, junto con su bienestar psicologico es la necesidad constante de estar conectado a redes sociales y diversas aplicaciones, esto no siendo solo una decisión personal, sino que muchas redes sociales se crean con este propósito como bien lo explica la BBC News Mundo, 2018 las empresas tecnológicas han diseñado sus aplicaciones explotando vulnerabilidades psicológicas para monopolizar este recurso natural que es la atención, Sean Parker cofundador de Facebook reconoció que estas redes sociales buscan consumir la mayor cantidad de tiempo posible proporcionando pequeñas inyecciones de dopamina a través de interacciones sociales intermitentes, como los Me gusta o los comentarios, este ciclo de recompensa constante dificulta que las personas resistan el impulso de revisar sus dispositivos, generando hábitos compulsivos, a este fenómeno se le denomino economía de la atención.</p>
 
-                <p>La economía de la atención se vio potenciada exponencialmente con las aplicaciones de videos cortos que al ser un scroll infinito y que el usuario solo requiere un pequeño movimiento para seguir deslizando entre contenido que el algoritmo selecciona para él, esto creo una nueva problemática denominada Doomscrolling que es el consumir de manera continua noticias negativas, Sharma et al. (2022) lo define de la explica de la siguiente manera esta práctica se alimenta de la arquitectura de las plataformas, que ofrecen un desplazamiento infinito y algoritmos de recomendación que atrapan al usuario en una espiral de contenido angustiante. Aunque el doomscrolling suele iniciarse por un deseo natural de mantenerse informado y anticipar amenazas en tiempos de crisis, rápidamente se convierte en un comportamiento pasivo y problemático que deteriora la salud mental, propiciando la pérdida de la noción del tiempo y el agotamiento emocional.</p>
+                <p>La economía de la atención se vio potenciada exponencialmente con las aplicaciones de videos cortos que al ser un scroll infinito y que el usuario solo requiere un pequeño movimiento para seguir deslizando entre contenido que el algoritmo selecciona para él, esto creo una nueva problemática denominada Doomscrolling que es el consumir de manera continua noticias negativas, Sharma et al. (2022) lo explica de la siguiente manera: esta práctica se alimenta de la arquitectura de las plataformas, que ofrecen un desplazamiento infinito y algoritmos de recomendación que atrapan al usuario en una espiral de contenido angustiante. Aunque el doomscrolling suele iniciarse por un deseo natural de mantenerse informado y anticipar amenazas en tiempos de crisis, rápidamente se convierte en un comportamiento pasivo y problemático que deteriora la salud mental, propiciando la pérdida de la noción del tiempo y el agotamiento emocional.</p>
 
-                <img src="assets/2.1.gif" class="multimedia">
+                <img src="assets/2.1.gif" alt="Persona sosteniendo un teléfono inteligente en sus manos mientras se desplaza continuamente hacia abajo por una galería de imágenes, ilustrando la acción de hacer scroll." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Gif tomado de: Lach, R. (2021, 4 octubre). Uso de teléfonos inteligentes [Vídeo]. Pexels. https://www.pexels.com/es-es/video/manos-telefono-inteligente-sujetando-pantalla-tactil-9785305/</p> 
                 
-                <p>Como se mencionó anterior mente el algoritmo se crea para explotar las debilidades de la psique humana, y esto hace que las personas más susceptibles a sufrir de ansiedad, estrés y depresión sean también las más afectadas por el Doomscrolling, como lo demuestran las conclusiones del estudio realizado por Türk-Kurtça y Kocatürk (2024) evidencian que las personas con altos niveles de ansiedad y una elevada intolerancia a la incertidumbre son más propensas a caer en este hábito, ante la imposibilidad de aceptar lo impredecible, estos individuos buscan obsesivamente información para recuperar el control, pero el consumo constante de noticias negativas paradójicamente incrementa su ansiedad y malestar frente a este panorama, la resiliencia psicológica emerge como un factor protector fundamental la capacidad de adaptarse al estrés y regular las emociones frente a la adversidad ayuda a mitigar los efectos del Doomscrolling.</p>
+                <p>Como se mencionó anteriormente el algoritmo se crea para explotar las debilidades de la psique humana, y esto hace que las personas más susceptibles a sufrir de ansiedad, estrés y depresión sean también las más afectadas por el Doomscrolling, como lo demuestran las conclusiones del estudio realizado por Türk-Kurtça y Kocatürk (2024) evidencian que las personas con altos niveles de ansiedad y una elevada intolerancia a la incertidumbre son más propensas a caer en este hábito, ante la imposibilidad de aceptar lo impredecible, estos individuos buscan obsesivamente información para recuperar el control, pero el consumo constante de noticias negativas paradójicamente incrementa su ansiedad y malestar frente a este panorama, la resiliencia psicológica emerge como un factor protector fundamental la capacidad de adaptarse al estrés y regular las emociones frente a la adversidad ayuda a mitigar los efectos del Doomscrolling.</p>
 
             </div>
 
@@ -701,7 +978,7 @@
 
                 <p>The attention economy was exponentially boosted with short video applications, which, being an infinite scroll where the user only requires a small movement to keep sliding through content that the algorithm selects for them, created a new problem called Doomscrolling. This is the continuous consumption of negative news. Sharma et al. (2022) explain it as follows: this practice feeds on the architecture of the platforms, which offer infinite scrolling and recommendation algorithms that trap the user in a spiral of distressing content. Although doomscrolling is often initiated by a natural desire to stay informed and anticipate threats in times of crisis, it quickly becomes a passive and problematic behavior that deteriorates mental health, leading to a loss of the sense of time and emotional exhaustion.</p>
 
-                <img src="assets/2.1.gif" class="multimedia">
+                <img src="assets/2.1.gif" alt="Person holding a smartphone in their hands while continuously scrolling down through an image gallery, illustrating the action of scrolling." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Gif taken from: Lach, R. (2021, 4 octubre). Uso de teléfonos inteligentes [Vídeo]. Pexels. https://www.pexels.com/es-es/video/manos-telefono-inteligente-sujetando-pantalla-tactil-9785305/</p> 
 
@@ -712,15 +989,33 @@
            <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
                 <p>Türk-Kurtça, T., & Kocatürk, M. (2024). Beyond the Scroll: exploring how intolerance of uncertainty and psychological resilience explain the association between trait anxiety and doomscrolling. Personality and Individual Differences, 233, 112919. https://doi.org/10.1016/j.paid.2024.112919 </p>
                 <p>Sharma, B., Lee, S. S., & Johnson, B. K. (2022). The dark at the end of the tunnel: Doomscrolling on social media newsfeeds. Technology Mind And Behavior, 3(1), 144-156. https://doi.org/10.1037/tmb0000059 </p>
-                <p>BBC News Mundo. (2018, 13 septiembre). Qué es la «economía de la atención» y por qué tu smartphone te hace parte de ella. https://www.bbc.com/mundo/noticias-45509092 /p>
+                <p>BBC News Mundo. (2018, 13 septiembre). Qué es la «economía de la atención» y por qué tu smartphone te hace parte de ella. https://www.bbc.com/mundo/noticias-45509092 </p>
                 
             </div> 
+
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">El Doomscrolling es el consumo pasivo y continuo de contenido negativo.</span><span class="idioma-en">Doomscrolling is the passive and continuous consumption of negative content.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion2-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion2-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">Las redes sociales están diseñadas para ignorar las vulnerabilidades psicológicas del usuario.</span><span class="idioma-en">Social networks are designed to ignore the user's psychological vulnerabilities.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion2-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion2-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
             
             <div class="section-nav-footer">
 
@@ -761,7 +1056,7 @@
 
                 <p>Muchas veces con la finalidad de terminar rápido una actividad o estudiar se realizan sesiones maratónicas de trabajo o estudio ininterrumpido, pero esto resulta adverso ya que genera fatiga mental lo que termina provocando una menor capacidad de concentración, disminución en la retención de información, mayor probabilidad de cometer errores y fatiga mental, para prevenir esto y tener mejores resultados se hace necesario implementar técnicas de estudio o trabajo, la principal que se recomienda es la técnica pomodoro que de acuerdo a Ellett (2016) fue desarrollada por Francesco Cirillo en la década de 1980, este método consiste en dividir el trabajo en intervalos de 25 minutos de concentración intensa denominados como pomodoros, seguidos de descansos cortos de 5 minutos y al completar cuatro ciclos consecutivos se realiza un descanso más prolongado de 30 minutos.</p>
 
-                <img src="assets/2.2.png" class="multimedia">
+                <img src="assets/2.2.png" alt="Infografía de la Técnica Pomodoro explicando sus 5 pasos: 1. Selecciona una tarea, 2. Cronometra 25 minutos, 3. Estudia concentrado, 4. Descansa 5 minutos, y 5. Toma un descanso de 30 minutos tras 4 ciclos." class="multimedia">
                 
                 <p>Los beneficios de utilizar la técnica pomodoro se evidenciaron en el estudio realizado por Ogut (2025), que analizó 32 estudios con más de 5.000 participantes donde se encontró que los intervalos estructurados de trabajo y descanso contribuyen a reducir la fatiga mental, mejorar la concentración y aumentar la motivación durante las sesiones de estudio. Los resultados mostraron que los estudiantes que utilizaron ciclos tipo Pomodoro presentaron niveles de concentración superiores y mejores resultados académicos en comparación con aquellos que estudiaban sin una estructura temporal definida. Asimismo, se observó una correlación positiva entre el uso de la técnica y variables como el rendimiento académico.</p>
 
@@ -771,7 +1066,7 @@
 
                 <p>Often, in order to quickly finish an activity or study, marathon sessions of uninterrupted work or study are carried out. However, this is adverse since it generates mental fatigue, which ends up causing a lower concentration capacity, a decrease in information retention, a higher probability of making mistakes, and mental exhaustion. To prevent this and achieve better results, it is necessary to implement study or work techniques. The main recommended one is the Pomodoro Technique, which according to Ellett (2016), was developed by Francesco Cirillo in the 1980s. This method consists of dividing work into 25-minute intervals of intense concentration known as pomodoros, followed by short 5-minute breaks, and upon completing four consecutive cycles, a longer break of 30 minutes is taken.</p>
                 
-                <img src="assets/2.2 en ingles.png" class="multimedia">
+                <img src="assets/2.2 en ingles.png" alt="Pomodoro Technique infographic explaining its 5 steps: 1. Select a task, 2. Set a timer for 25 minutes, 3. Study with complete focus, 4. Take a 5-minute break, and 5. Take a 30-minute break after 4 cycles." class="multimedia">
 
                 <p>The benefits of using the Pomodoro technique were evidenced in the study conducted by Ogut (2025), which analyzed 32 studies with more than 5,000 participants. It was found that structured intervals of work and rest contribute to reducing mental fatigue, improving concentration, and increasing motivation during study sessions. The results showed that students who used Pomodoro-type cycles presented higher levels of concentration and better academic results compared to those who studied without a defined temporal structure. Likewise, a positive correlation was observed between the use of the technique and variables such as academic performance.</p>
 
@@ -780,7 +1075,7 @@
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -788,7 +1083,25 @@
 
                 <p>Ellett, G. (2016, 14 diciembre). The Pomodoro Technique: Study More Efficiently, Take More Breaks. Learning Commons. https://learningcommons.ubc.ca/the-pomodoro-technique-study-more-efficiently-take-more-breaks/</p>
 
-            </div> 
+            </div>
+            
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">Un Pomodoro consiste en trabajar 25 minutos de forma intensa.</span><span class="idioma-en">A Pomodoro consists of working 25 minutes intensely.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion2-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion2-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">La técnica Pomodoro recomienda no realizar descansos largos nunca.</span><span class="idioma-en">The Pomodoro technique recommends never taking long breaks.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion2-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion2-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
             <div class="section-nav-footer">
 
@@ -824,11 +1137,11 @@
 
             <div class="idioma-es">
 
-                <p>En la actualizad las personas manejan decenas de cuentas digitales como lo son plataformas universitarias, correos electrónicos, redes sociales y servicios financieros, muchas veces se cree que una contraseña segura debe contener una mezcla de mayúsculas, minúsculas, números y símbolos por ejemplo P@$$w0rd!, sin embargo la evidencia actual en ciberseguridad demuestra que este enfoque suele generar contraseñas difíciles de recordar para el usuario, pero relativamente fáciles de descifrar para los algoritmos modernos mediante ataques de fuerza bruta o diccionarios.</p>
+                <p>En la actualidad las personas manejan decenas de cuentas digitales como lo son plataformas universitarias, correos electrónicos, redes sociales y servicios financieros, muchas veces se cree que una contraseña segura debe contener una mezcla de mayúsculas, minúsculas, números y símbolos por ejemplo P@$$w0rd!, sin embargo la evidencia actual en ciberseguridad demuestra que este enfoque suele generar contraseñas difíciles de recordar para el usuario, pero relativamente fáciles de descifrar para los algoritmos modernos mediante ataques de fuerza bruta o diccionarios.</p>
 
-                <p>De acuerdo con la publicación de Grassi et al. (2017), la entropía de una contraseña que se refiere a su imprevisibilidad y resistencia matemática al descifrado aumenta de manera drástica con su longitud que con su complejidad tipográfica una contraseña de 16 a 20 caracteres formada por palabras comunes al azar como caballonubetecladoazul tomaría siglos en ser descifrada por una supercomputadora, mientras que una contraseña compleja de 8 caracteres puede ser vulnerada en cuestión de horas o días.</p>
+                <p>De acuerdo con la publicación de Grassi et al. (2017), la entropía de una contraseña que se refiere a su imprevisibilidad y resistencia matemática al descifrado aumenta de manera drástica con su longitud que con su complejidad tipográfica, una contraseña de 16 a 20 caracteres formada por palabras comunes al azar como caballonubetecladoazul tomaría siglos en ser descifrada por una supercomputadora, mientras que una contraseña compleja de 8 caracteres puede ser vulnerada en cuestión de horas o días.</p>
                 
-                <img src="assets/3.1.png" class="multimedia">
+                <img src="assets/3.1.png" alt="Ilustración que contrasta una contraseña corta y llena de símbolos representada como una cabaña de madera frágil, frente a una frase larga de palabras comunes representada como una Fortaleza." class="multimedia">
 
                 <p>Además, la Cyber Security Agency of Singapore, 2025 advierte que el mayor riesgo no es solo la debilidad de la clave sino su reutilización, si una plataforma es vulnerada los atacantes probarán esas mismas credenciales en otros, por lo cual propone la siguiente información sobre higiene de contraseñas:</p>
 
@@ -849,7 +1162,7 @@
 
                 <p>According to the publication by Grassi et al. (2017), the entropy of a password which refers to its unpredictability and mathematical resistance to decryption increases drastically with its length rather than with its typographical complexity a 16 to 20 character password formed by random common words like horsecloudkeyboardblue would take centuries to be cracked by a supercomputer, while a complex 8-character password can be compromised in a matter of hours or days.</p>
                 
-                <img src="assets/3.1 ingles.png" class="multimedia">
+                <img src="assets/3.1 ingles.png" alt="Illustration contrasting a short password full of symbols depicted as a fragile wooden hut, against a long phrase of common words depicted as a fortress." class="multimedia">
 
                 <p>Furthermore, the Cyber Security Agency of Singapore, 2025 warns that the greatest risk is not only the weakness of the password but its reuse, if a platform is breached attackers will try those same credentials on others, for which it proposes the following information on password hygiene:</p>
 
@@ -866,7 +1179,7 @@
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -876,6 +1189,24 @@
 
             </div> 
 
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">Una contraseña de 16 caracteres formada por palabras al azar es más segura que una compleja de 8 caracteres.</span><span class="idioma-en">A 16-character password made of random words is more secure than a complex 8-character one.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion3-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion3-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">La reutilización de contraseñas en diferentes sitios no aumenta el riesgo de seguridad.</span><span class="idioma-en">Reusing passwords across different sites does not increase security risk.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion3-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion3-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
+            
             <div class="section-nav-footer">
 
                 <button class="btn-siguiente btn-retroceder" onclick="mostrarSeccion('seccion2-2')">
@@ -914,13 +1245,13 @@
                 
                 <p>Para lograr su objetivo, los atacantes rara vez apelan a la lógica. De acuerdo con el Instituto Nacional de Ciberseguridad de España, 2021, la principal táctica del phishing es generar una falsa sensación de urgencia o amenaza, utilizando mensajes con asuntos como tu cuenta será suspendida, multa pendiente de pago o reclama tu beca hoy mismo, están diseñados para provocar miedo o un entusiasmo repentino, esta presión psicológica busca que la víctima tome medidas rápidas y precipitadas, saltándose el pensamiento crítico y cualquier medida de precaución.</p>
 
-                <img src="assets/3.2.png" class="multimedia">
+                <img src="assets/3.2.png" alt="Pantalla de un portátil mostrando un icono de sobre de correo electrónico amarillo que está siendo atrapado por un anzuelo de pesca, simbolizando el engaño del phishing." class="multimedia">
 
                 <p>Para no caer en estas trampas y proteger la identidad digital es fundamental desarrollar un escepticismo saludable y aplicar de manera sistemática las siguientes pautas dadas por el Instituto Nacional de Ciberseguridad de España, 2017:</p>
             
                 <ul>
 
-                    <li><strong>El remitente real:</strong> Los atacantes utilizan técnicas de email spoofing para falsear el nombre visible, por eso es indispensable revisar el correo desde donde se envía para corroborar su legitimad por que las instituciones legítimas utilizan sus propios dominios corporativos como por ejemplo @unad.edu.co, por lo que un envío desde dominios gratuitos como @gmail.com o dominios con nombres extraños o mal escritos son una señal clara de fraude.</li>
+                    <li><strong>El remitente real:</strong> Los atacantes utilizan técnicas de email spoofing para falsear el nombre visible, por eso es indispensable revisar el correo desde donde se envía para corroborar su legitimad porque las instituciones legítimas utilizan sus propios dominios corporativos como por ejemplo @unad.edu.co, por lo que un envío desde dominios gratuitos como @gmail.com o dominios con nombres extraños o mal escritos son una señal clara de fraude.</li>
                     <li><strong>Verificar los enlaces sin hacer clic:</strong> Antes de presionar cualquier botón, se debe situar el cursor del ratón por encima del enlace para previsualizar la URL en la pantalla, si el texto indica ir al banco o a un portal académico, pero el enlace dirige a una dirección web extraña o no oficial es un engaño.</li>
                     <li><strong>¿A quién va dirigido el correo?:</strong> Los envíos masivos de phishing a menudo no disponen del nombre de la víctima, por lo cual se dirigen con mensajes genéricos como estimado cliente u hola estudiante, combinadas en ocasiones con errores ortográficos o traducciones deficientes, son indicadores de alerta.</li>
                     <li><strong>Ignorar solicitudes directas de credenciales:</strong> Ninguna entidad legítima, ya sea pública o privada solicita contraseñas, pines o datos bancarios confidenciales pidiendo que respondas a un correo electrónico, a un mensaje o en una llamada.</li>
@@ -936,7 +1267,7 @@
                 
                 <p>To achieve their goal, attackers rarely appeal to logic. According to the National Cybersecurity Institute of Spain, 2021, the main phishing tactic is to generate a false sense of urgency or threat, using messages with subjects like your account will be suspended, pending fine payment or claim your scholarship today, they are designed to provoke fear or sudden enthusiasm, this psychological pressure seeks to make the victim take quick and hasty actions, bypassing critical thinking and any precautionary measures.</p>
 
-                <img src="assets/3.2.png" class="multimedia">
+                <img src="assets/3.2.png" alt="Laptop screen showing a yellow email envelope icon being caught by a fishing hook, symbolizing the deception of phishing." class="multimedia">
 
                 <p>To avoid falling into these traps and protect digital identity it is essential to develop a healthy skepticism and systematically apply the following guidelines given by the National Cybersecurity Institute of Spain, 2017:</p>
             
@@ -955,7 +1286,7 @@
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -964,6 +1295,24 @@
                 <p>Instituto Nacional de Ciberseguridad de España. (2021, 19 enero). TemáTICas Phishing | Empresas | INCIBE. incibe.es. https://www.incibe.es/empresas/tematicas/phishing </p>
 
             </div> 
+
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">Si un correo electrónico tiene errores ortográficos o traducciones deficientes, puede ser una alerta de Phishing.</span><span class="idioma-en">If an email has spelling errors or poor translations, it could be a Phishing alert.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion3-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion3-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">Las entidades legítimas suelen solicitar contraseñas respondiendo a un correo electrónico.</span><span class="idioma-en">Legitimate entities often request passwords by replying to an email.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion3-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion3-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
             <div class="section-nav-footer">
 
@@ -999,13 +1348,13 @@
 
             <div class="idioma-es">
 
-                <p>Con los equipos inteligentes cada vez más ligados a la vida cotidiana da como resultado que cada vez que interactuamos con el entorno virtual o el físico atreves de la tecnología dejamos un rastro de información, de acuerdo a García. (2021) este cúmulo de datos conforma nuestra huella digital, la cual representa actualmente uno de los mayores desafíos para la protección de la privacidad individual y colectiva, en este sentido Puebla. (2018) explica que esta huella es una valiosa materia prima para analizar el comportamiento humano y se produce fundamentalmente por dos vías de forma pasiva producida de forma automática por los equipos utilizados y de forma activa generada conscientemente por los usuarios.</p>
+                <p>Con los equipos inteligentes cada vez más ligados a la vida cotidiana da como resultado que cada vez que interactuamos con el entorno virtual o el físico a trevés de la tecnología dejamos un rastro de información, de acuerdo a García. (2021) este cúmulo de datos conforma nuestra huella digital, la cual representa actualmente uno de los mayores desafíos para la protección de la privacidad individual y colectiva, en este sentido Puebla. (2018) explica que esta huella es una valiosa materia prima para analizar el comportamiento humano y se produce fundamentalmente por dos vías de forma pasiva producida de forma automática por los equipos utilizados y de forma activa generada conscientemente por los usuarios.</p>
                 
                 <p>Aunque la huella pasiva ocurre de manera rutinaria y a menudo de manera inconsciente al emplear cualquier equipo tecnológico en tareas sencillas, como la navegación web, las compras, los sensores del dispositivo, entre muchas otras herramientas que recopilan información, es en la huella activa donde el usuario tiene un rol protagónico y una responsabilidad directa Puebla. (2018) señala que con la consolidación de las redes sociales las personas dejaron de ser meros receptores de información para convertirse en generadores de contenido esta huella activa engloba los inmensos volúmenes de datos explícitos que creamos al participar en redes sociales, publicar fotografías, emitir opiniones en foros, enviar correos electrónicos y dar likes a diversas publicaciones.</p>
             
                 <p>El verdadero desafío de la huella activa radica en la falta de consciencia sobre sus implicaciones a largo plazo en la actual era del big data Puebla. (2018) destaca que los datos masivos son considerados el petróleo de la economía del siglo XXI, lo que impulsa a las grandes compañías tecnológicas a recopilar nuestra información voluntaria para elaborar perfiles sociológicos y psicológicos altamente detallados, a pesar de esto, García (2021) alerta que gran parte de la población presiona el botón de aceptar en los términos y condiciones sin siquiera saber que está aceptando, y termina compartiendo detalles de su vida personal con una preocupante falta de precaución al entregar voluntariamente esta información, los usuarios se exponen a riesgos significativos, facilitando vías para la vigilancia comercial, la manipulación ideológica y la posible violación de sus libertades fundamentales.</p>
 
-                <img src="assets/4.1.png" class="multimedia">
+                <img src="assets/4.1.png" alt="Ilustración conceptual de la huella digital: una mujer camina dejando un rastro de huellas hechas de código binario, rodeada de iconos que representan las interacciones diarias en internet." class="multimedia">
 
             </div>
 
@@ -1017,14 +1366,14 @@
             
                 <p>The real challenge of the active footprint lies in the lack of awareness about its long-term implications in the current big data era, Puebla. (2018) highlights that massive data is considered the oil of the 21st-century economy, which drives large technological companies to collect our voluntary information to elaborate highly detailed sociological and psychological profiles, despite this, García (2021) warns that a large part of the population presses the accept button in the terms and conditions without even knowing what they are accepting, and ends up sharing details of their personal life with a worrying lack of precaution by voluntarily handing over this information, users expose themselves to significant risks, facilitating ways for commercial surveillance, ideological manipulation and the possible violation of their fundamental freedoms.</p>
 
-                <img src="assets/4.1.png" class="multimedia">
+                <img src="assets/4.1.png" alt="Conceptual illustration of the digital footprint: a woman walks leaving a trail of footprints made of binary code, surrounded by icons representing daily internet interactions." class="multimedia">
 
             </div>
 
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -1032,7 +1381,25 @@
 
                 <p>Puebla, J. G. (2018). Big Data y nuevas geografías: la huella digital de las actividades humanas. Documents D Anàlisi Geogràfica, 64(2), 195-217. https://doi.org/10.5565/rev/dag.526</p>
 
-            </div> 
+            </div>
+            
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">La huella digital pasiva se genera automáticamente por los equipos que usamos.</span><span class="idioma-en">The passive digital footprint is generated automatically by the devices we use.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion4-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion4-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">Solo la huella digital activa tiene riesgos de privacidad.</span><span class="idioma-en">Only the active digital footprint has privacy risks.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion4-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion4-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
             <div class="section-nav-footer">
 
@@ -1068,7 +1435,7 @@
 
             <div class="idioma-es">
 
-                <p>La construcción de una identidad digital no es un proceso que termine al cerrar una sesión o al eliminar una aplicación, por el contrario, los datos que publicamos en la red permanecen a lo largo del tiempo, García. (2021) advierte que la huella digital constituye un registro imborrable que influye en la reputación, en el ámbito social y laboral de una persona, esto resulta relevante porque cada día las instituciones ven la necesidad de analizar la presencia en redes de sus futuros trabajadores para así evitar escáñalos y mala publicidad, por lo cual realizar una revisión de nuestra presencia web y ser más conscientes del impacto de lo que publicamos se ha convertido en una acción preventiva indispensable para proteger el futuro profesional.</p>
+                <p>La construcción de una identidad digital no es un proceso que termine al cerrar una sesión o al eliminar una aplicación, por el contrario, los datos que publicamos en la red permanecen a lo largo del tiempo, García. (2021) advierte que la huella digital constituye un registro imborrable que influye en la reputación, en el ámbito social y laboral de una persona, esto resulta relevante porque cada día las instituciones ven la necesidad de analizar la presencia en redes de sus futuros trabajadores para así evitar escándalos y mala publicidad, por lo cual realizar una revisión de nuestra presencia web y ser más conscientes del impacto de lo que publicamos se ha convertido en una acción preventiva indispensable para proteger el futuro profesional.</p>
 
                 <p>Para evitar que este historial se convierta en un obstáculo o en una posible fuga de información personal se deben realizar una revisión de su presencia en la red, integrando las siguientes medidas encontradas en los textos de Marriott-Smith (2026) y García. (2021):</p>
 
@@ -1081,7 +1448,7 @@
 
                 </ul>
 
-                <img src="assets/4.2.png" class="multimedia">
+                <img src="assets/4.2.png" alt="Un hombre utilizando una escoba para barrer y limpiar decenas de iconos de redes sociales sobre la pantalla de un teléfono inteligente gigante, simbolizando la limpieza de la presencia digital." class="multimedia">
 
             </div>
 
@@ -1100,14 +1467,14 @@
 
                 </ul>
 
-                <img src="assets/4.2.png" class="multimedia">
+                <img src="assets/4.2.png" alt="A man using a broom to sweep and clean dozens of social media icons off the screen of a giant smartphone, symbolizing the cleaning of one's digital presence." class="multimedia">
 
             </div>
 
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -1115,7 +1482,25 @@
                 
                 <p>Marriott-Smith, M. (2026, 4 febrero). Why you should check your digital footprint before job searching. Unitemps. https://www.unitemps.com/career-advice/why-you-should-check-your-digital-footprint-before-job-searching/</p>
 
-            </div> 
+            </div>
+
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">Es recomendable buscar tu propio nombre en buscadores para ver qué información pública existe.</span><span class="idioma-en">It is advisable to search for your own name in search engines to see what public information exists.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion4-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion4-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">El derecho al olvido no permite pedir la eliminación de datos obsoletos en buscadores.</span><span class="idioma-en">The right to be forgotten does not allow requesting the removal of obsolete data in search engines.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion4-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion4-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
             <div class="section-nav-footer">
 
@@ -1153,9 +1538,9 @@
 
                 <p>En el entorno hiperconectado actual, el bienestar emocional se ve frecuentemente desafiado por fenómenos psicológicos que se han producido por el uso constante de las redes sociales el más relevante de ellos es el Fear Of Missing Out abreviado como FOMO que en español se traduciría como miedo a perderse algo, Przybylski et al. (2013) explica que es una aprensión generalizada de que otros podrían estar teniendo experiencias gratificantes de las cuales uno está ausente, esta sensación se traduce en un deseo compulsivo de mantenerse continuamente conectado a las actividades de la red, según este estudio la ansiedad de desconexión no es un simple problema de gestión del tiempo, sino la frustración de una profunda necesidad psicológica de pertenencia social que los entornos digitales explotan y monetizan.</p>
 
-                <p>Otro fenómeno generado a raíz de las redes sociales que es menos conocido, pero más perjudicial es la ansiedad comparativa esto se debe a que las personas rara vez documentan su cotidianidad rutinaria o sus fracasos en su lugar publican sus mejores momentos o versiones editadas de sus vidas, Vogel et al. (2014) explican que la exposición constante a estos perfiles altamente idealizados provoca que los usuarios realicen una comparación social al medir sus propias vidas llenas de altibajos y vulnerabilidades contra las aparentes vidas perfectas de las otras personas muestran en sus redes, por lo cual experimentan una reducción significativa en su autoestima, generando sentimientos de insuficiencia, soledad y ansiedad crónica.</p>
+                <p>Otro fenómeno generado a raíz de las redes sociales que es menos conocido, pero más perjudicial es la ansiedad comparativa esto se debe a que las personas rara vez documentan su cotidianidad rutinaria o sus fracasos, en su lugar publican sus mejores momentos o versiones editadas de sus vidas, Vogel et al. (2014) explican que la exposición constante a estos perfiles altamente idealizados provoca que los usuarios realicen una comparación social al medir sus propias vidas llenas de altibajos y vulnerabilidades contra las aparentes vidas perfectas de las otras personas muestran en sus redes, por lo cual experimentan una reducción significativa en su autoestima, generando sentimientos de insuficiencia, soledad y ansiedad crónica.</p>
 
-                <img src="assets/5.1.png" class="multimedia">
+                <img src="assets/5.1.png" alt="Comparación visual que muestra a un joven tomándose una selfie en lo que parece una habitación limpia para sus redes sociales, mientras la otra mitad de la imagen revela que la habitación real es un completo desastre." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Imagen tomada de: Evilfavoriteart. (2025, September 10). Download Digital Life, Social Media, online vs reality. Royalty-Free Vector Graphic. Pixabay. https://pixabay.com/vectors/digital-life-social-media-9818472/</p> 
 
@@ -1169,7 +1554,7 @@
 
                 <p>Another phenomenon generated as a result of social networks that is less known, but more harmful is comparative anxiety this is due to the fact that people rarely document their routine daily lives or their failures instead they publish their best moments or edited versions of their lives, Vogel et al. (2014) explain that constant exposure to these highly idealized profiles causes users to make a social comparison when measuring their own lives full of ups and downs and vulnerabilities against the apparent perfect lives other people show on their networks, for which they experience a significant reduction in their self-esteem, generating feelings of inadequacy, loneliness and chronic anxiety.</p>
 
-                <img src="assets/5.1.png" class="multimedia">
+                <img src="assets/5.1.png" alt="Visual comparison showing a young man taking a selfie in what appears to be a clean room for his social networks, while the other half of the image reveals that the actual room is a complete mess." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Image taken from: Evilfavoriteart. (2025, September 10). Download Digital Life, Social Media, online vs reality. Royalty-Free Vector Graphic. Pixabay. https://pixabay.com/vectors/digital-life-social-media-9818472/</p> 
 
@@ -1180,7 +1565,7 @@
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -1188,7 +1573,25 @@
 
                 <p>Vogel, E. A., Rose, J. P., Roberts, L. R., & Eckles, K. (2014). Social comparison, social media, and self-esteem. Psychology Of Popular Media Culture, 3(4), 206-222. https://doi.org/10.1037/ppm0000047</p> 
 
-            </div> 
+            </div>
+
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">El FOMO es un miedo a perderse experiencias gratificantes de las cuales uno está ausente.</span><span class="idioma-en">FOMO is a fear of missing out on rewarding experiences from which one is absent.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion5-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion5-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">Las redes sociales reflejan fielmente la cotidianidad rutinaria de las personas.</span><span class="idioma-en">Social networks faithfully reflect people's routine daily lives.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion5-1')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion5-1')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
             <div class="section-nav-footer">
 
@@ -1226,9 +1629,9 @@
 
                 <p>Frente a la constante presión de la conectividad perpetua y los efectos negativos del FOMO las investigaciones psicológicas ha comenzado a explorar un paradigma alternativo enfocado en el bienestar proponiendo el Joy of Missing Out abreviado como JOMO o la alegría de perderse algo en español, de acuerdo con un estudio realizado por Barry et al. (2023) el JOMO se conceptualiza como el disfrute y la satisfacción que se experimenta durante los períodos de desconexión de los demás o de las exigencias sociales, a diferencia del aislamiento no deseado o la evasión impulsada por la ansiedad social, el JOMO genuino está fundamentado en la teoría de la autodeterminación esto significa que los beneficios psicológicos surgen cuando el individuo tiene la libertad y la autonomía para elegir desconectarse de la interacción virtual.</p>
                
-                <p>Los resultados obtenidos por Barry et al., 2023 demuestran que cultivar el JOMO está asociado positivamente con mayores niveles de atención plena y satisfacción con la vida, cuando las personas disfrutan de estar desconectadas, no lo ven como una restricción sino como una oportunidad valiosa para centrarse en su entorno inmediato, descansar mentalmente y dedicar tiempo al autorreflexión y a la inspiración creativa independiente.</p>
+                <p>Los resultados obtenidos por Barry et al., 2023 demuestran que cultivar el JOMO está asociado positivamente con mayores niveles de atención plena y satisfacción con la vida, cuando las personas disfrutan de estar desconectadas, no lo ven como una restricción sino como una oportunidad valiosa para centrarse en su entorno inmediato, descansar mentalmente y dedicar tiempo a la autorreflexión y a la inspiración creativa independiente.</p>
 
-                <img src="assets/5.2.jpg" class="multimedia">
+                <img src="assets/5.2.jpg" alt="Comparativa visual entre el FOMO, que muestra a una mujer estresada recibiendo notificaciones en su celular, y el JOMO, que muestra a una mujer sonriente y relajada leyendo un libro en un sillón." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Imagen tomada de: Freepik. (s. f.). Fomo vs jomo | Vector gratuito. Magnific. https://www.magnific.com/es/vector-gratis/fomo-vs-jomo_9884685.htm#fromView=search&page=1&position=5&uuid=a809e159-6878-4431-9b1d-e68572fd4870&query=fomo+vs+jomo</p>
 
@@ -1254,7 +1657,7 @@
                 
                 <p>The results obtained by Barry et al., 2023 show that cultivating JOMO is positively associated with higher levels of mindfulness and life satisfaction, when people enjoy being disconnected, they do not see it as a restriction but as a valuable opportunity to focus on their immediate environment, rest mentally and dedicate time to self-reflection and independent creative inspiration.</p>
 
-                <img src="assets/5.2.jpg" class="multimedia">
+                <img src="assets/5.2.jpg" alt="Visual comparison between FOMO, showing a stressed woman receiving notifications on her cell phone, and JOMO, showing a smiling and relaxed woman reading a book on an armchair." class="multimedia">
 
                 <p style="font-size: 10px; color: rgb(63, 63, 70); text-align: center;">Image taken from: Freepik. (n. d.). Fomo vs jomo | Vector gratuito. Magnific. https://www.magnific.com/es/vector-gratis/fomo-vs-jomo_9884685.htm#fromView=search&page=1&position=5&uuid=a809e159-6878-4431-9b1d-e68572fd4870&query=fomo+vs+jomo</p>
 
@@ -1276,7 +1679,7 @@
             <div class="cita-bibliografica">
 
                 <strong>
-                    <span class="idioma-es">Referencias bibliograficas:</span>
+                    <span class="idioma-es">Referencias bibliográficas:</span>
                     <span class="idioma-en">Bibliographic references:</span>
                 </strong>
 
@@ -1284,7 +1687,25 @@
 
                 <p>Sanz, S. (2025, 31 marzo). SUPERANDO EL FOMO: CÓMO HALLAR SATISFACCIÓN EN EL JOMO. Psytel Psicólogos Especialistas. https://psytel.es/superando-el-fomo-como-hallar-satisfaccion-en-el-jomo/</p>   
 
-            </div> 
+            </div>
+
+            <div class="micro-quiz">
+                <p><strong><span class="idioma-es">Cuestionario de sección</span><span class="idioma-en">Quick break?</span></strong></p>
+                
+                <p>1. <span class="idioma-es">El JOMO se basa en la autonomía para elegir cuándo desconectarse de la interacción virtual.</span><span class="idioma-en">JOMO is based on the autonomy to choose when to disconnect from virtual interaction.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, true, 'seccion5-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, false, 'seccion5-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+
+                <p>2. <span class="idioma-es">Desactivar las notificaciones es una estrategia que aumenta la ansiedad digital.</span><span class="idioma-en">Disabling notifications is a strategy that increases digital anxiety.</span></p>
+                <div class="micro-opciones">
+                    <button onclick="checkMicro(this, false, 'seccion5-2')"><span class="idioma-es">Verdadero</span><span class="idioma-en">True</span></button>
+                    <button onclick="checkMicro(this, true, 'seccion5-2')"><span class="idioma-es">Falso</span><span class="idioma-en">False</span></button>
+                </div>
+                <p class="micro-feedback"></p>
+            </div>
 
             <div class="section-nav-footer">
 
@@ -1739,20 +2160,83 @@
     </main>
 
     <script>
+        
         let idiomaActual = 'es';
 
-        function cambiarIdioma() {
-            idiomaActual = idiomaActual === 'es' ? 'en' : 'es';
-            
+        function toggleMenu() {
+            document.querySelector('nav').classList.toggle('nav-abierto');
+            document.getElementById('overlay').classList.toggle('mostrar');
+        }
+
+        if (window.innerWidth <= 900) {
+                document.querySelector('nav').classList.remove('nav-abierto');
+                document.getElementById('overlay').classList.remove('mostrar');
+            }
+
+
+        function toggleDropdown() {
+            document.getElementById("dropdown-opciones").classList.toggle("mostrar");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.btn-dropdown')) {
+                let dropdowns = document.getElementsByClassName("dropdown-contenido");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('mostrar')) {
+                        openDropdown.classList.remove('mostrar');
+                    }
+                }
+            }
+        }
+
+        function seleccionarIdioma(idioma) {
+            idiomaActual = idioma;
             const elementosES = document.querySelectorAll('.idioma-es');
             const elementosEN = document.querySelectorAll('.idioma-en');
+            const btnActual = document.getElementById('btn-idioma-actual');
 
-            if (idiomaActual === 'en') {
+            if (idioma === 'en') {
                 elementosES.forEach(el => el.style.display = 'none');
-                elementosEN.forEach(el => el.style.display = 'inline-block'); 
+                elementosEN.forEach(el => el.style.display = 'inline-block');
+                
+                btnActual.innerHTML = `
+                    <img src="assets/ingles.png" alt="Bandera Inglés" width="24" class="icono-bandera"> 
+                    <span>English</span>
+                    <span class="flecha">▼</span>
+                `;
             } else {
                 elementosES.forEach(el => el.style.display = 'inline-block');
                 elementosEN.forEach(el => el.style.display = 'none');
+                
+                btnActual.innerHTML = `
+                    <img src="assets/español.png" alt="Bandera Español" width="24" class="icono-bandera"> 
+                    <span>Español</span>
+                    <span class="flecha">▼</span>
+                `;
+            }
+            document.getElementById("dropdown-opciones").classList.remove("mostrar");
+        }
+
+
+        let seccionesVisitadas = new Set();
+        const totalSeccionesProgreso = 11;
+
+        function marcarSeccionCompletada(idSeccion) {
+            if (!seccionesVisitadas.has(idSeccion)) {
+                seccionesVisitadas.add(idSeccion);
+                
+                const itemMenu = document.getElementById('nav-' + idSeccion);
+                if (itemMenu && !itemMenu.querySelector('.check-completado')) {
+                    const check = document.createElement('span');
+                    check.className = 'check-completado';
+                    check.innerHTML = '✔';
+                    itemMenu.appendChild(check);
+                }
+                
+                const porcentaje = Math.round((seccionesVisitadas.size / totalSeccionesProgreso) * 100);
+                document.getElementById('barra-progreso').style.width = porcentaje + '%';
+                document.getElementById('porcentaje-texto').innerText = porcentaje + '%';
             }
         }
 
@@ -1765,14 +2249,30 @@
             const itemsNavegacion = document.querySelectorAll('nav ul li');
             itemsNavegacion.forEach(item => item.classList.remove('active-nav'));
             
-            document.getElementById('nav-' + idSeccion).classList.add('active-nav');
+            const navItem = document.getElementById('nav-' + idSeccion);
+            if (navItem) {
+                navItem.classList.add('active-nav');
+            }
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (window.innerWidth <= 900) {
+                const nav = document.querySelector('nav');
+                const overlay = document.getElementById('overlay');
+                
+                if (nav) nav.classList.remove('nav-abierto');
+                if (overlay) overlay.classList.remove('mostrar');
+            }
         }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            mostrarSeccion('seccion1-1'); 
+        });
+
 
         const totalPreguntas = 10;
         let puntaje = 0;
-        
         let preguntasRespondidas = {
             1: false, 2: false, 3: false, 4: false, 5: false, 
             6: false, 7: false, 8: false, 9: false, 10: false
@@ -1793,19 +2293,20 @@
                 elementoBoton.style.backgroundColor = '#d5f5e3';
                 elementoBoton.style.borderColor = '#27ae60';
                 
+
                 if(idiomaActual === 'es'){
-                    elementoRetroalimentacion.innerHTML = '<span class="correcta">✅ ¡Respuesta Correcta!</span>';
+                    elementoRetroalimentacion.innerHTML = '<span class="correcto">✅ ¡Respuesta Correcta!</span>';
                 } else {
-                    elementoRetroalimentacion.innerHTML = '<span class="correcta">✅ Correct Answer!</span>';
+                    elementoRetroalimentacion.innerHTML = '<span class="correcto">✅ Correct Answer!</span>';
                 }
             } else {
                 elementoBoton.style.backgroundColor = '#fadbd8';
                 elementoBoton.style.borderColor = '#e74c3c';
                 
                 if(idiomaActual === 'es'){
-                    elementoRetroalimentacion.innerHTML = '<span class="incorrecta">❌ Respuesta Incorrecta.</span>';
+                    elementoRetroalimentacion.innerHTML = '<span class="incorrecto">❌ Respuesta Incorrecta.</span>';
                 } else {
-                    elementoRetroalimentacion.innerHTML = '<span class="incorrecta">❌ Incorrect Answer.</span>';
+                    elementoRetroalimentacion.innerHTML = '<span class="incorrecto">❌ Incorrect Answer.</span>';
                 }
             }
 
@@ -1842,16 +2343,17 @@
 
                 document.getElementById('texto-puntaje-es').innerHTML = mensajeES;
                 document.getElementById('texto-puntaje-en').innerHTML = mensajeEN;
+                
+
+                marcarSeccionCompletada('seccion-quiz');
             }
         }
 
         function reiniciarCuestionario() {
-
             puntaje = 0;
             for (let i = 1; i <= totalPreguntas; i++) {
                 preguntasRespondidas[i] = false;
             }
-
 
             const botones = document.querySelectorAll('.quiz-opciones button');
             botones.forEach(btn => {
@@ -1863,10 +2365,38 @@
             const retro = document.querySelectorAll('.retroalimentacion');
             retro.forEach(div => div.innerHTML = '');
 
-
             document.getElementById('quiz-resultado').style.display = 'none';
         }
 
+        function checkMicro(btn, esVerdad, idSeccion) {
+            const contenedor = btn.closest('.micro-opciones');
+            const feedback = contenedor.nextElementSibling;
+            const botones = contenedor.querySelectorAll('button');
+            
+            botones.forEach(b => b.disabled = true);
+            
+            if (esVerdad) {
+                feedback.innerHTML = idiomaActual === 'es' ? '<span class="correcto">✅ ¡Correcto!</span>' : '<span class="correcto">✅ Correct!</span>';
+                btn.style.backgroundColor = '#d5f5e3';
+                btn.style.borderColor = '#27ae60';
+            } else {
+                feedback.innerHTML = idiomaActual === 'es' ? '<span class="incorrecto">❌ Incorrecto.</span>' : '<span class="incorrecto">❌ Incorrect.</span>';
+                btn.style.backgroundColor = '#fadbd8';
+                btn.style.borderColor = '#e74c3c';
+            }
+            const seccionActiva = document.getElementById(idSeccion);
+            const gruposOpciones = seccionActiva.querySelectorAll('.micro-opciones');
+            let preguntasRespondidas = 0;
+
+            gruposOpciones.forEach(grupo => {
+                const respondido = Array.from(grupo.querySelectorAll('button')).some(b => b.disabled);
+                if(respondido) preguntasRespondidas++;
+            });
+
+            if (preguntasRespondidas === gruposOpciones.length) {
+                marcarSeccionCompletada(idSeccion);
+            }
+        }
     </script>
 
 </body>
